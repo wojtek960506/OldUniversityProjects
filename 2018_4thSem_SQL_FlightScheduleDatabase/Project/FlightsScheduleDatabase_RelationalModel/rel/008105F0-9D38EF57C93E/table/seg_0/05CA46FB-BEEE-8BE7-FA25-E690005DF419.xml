@@ -1,0 +1,78 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="05CA46FB-BEEE-8BE7-FA25-E690005DF419" name="RESERVATIONS">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 15:37:00 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<ordsAlias>table_7</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="RESERVATION_ID" id="D3AE4D54-D31A-C669-65CB-4DE2E8ADF112">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 15:52:50 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TOURIST_ID" id="9B17D3DE-0D67-2A4F-D4F9-BE8F9D160449">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 15:53:55 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EF616B45-543D-A54D-4E14-F27BB0C885B6" referredColumn="769AAD9F-AE4B-9CBB-BF04-271DBD4F2DCE"/>
+</associations>
+</Column>
+<Column name="RESERVATION_NUMBER_OF_FLIGHTS" id="E0A2D3E6-D5DC-5E85-58D4-D22DD8A751EE">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 16:02:14 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RESERVATION_PRICE" id="DF0E12EC-7CA4-9434-3153-8743F39FBD30">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 15:59:40 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="5EA1DDC0-5C1F-A96E-D7F7-E5D3B46C8ABE" name="RESERVATIONS_PK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 15:52:50 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D3AE4D54-D31A-C669-65CB-4DE2E8ADF112"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8453EB36-46DC-4FA0-3925-8367A5B67BC2" name="RESERVATIONS_TOURISTS_FK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 21:35:21 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9B17D3DE-0D67-2A4F-D4F9-BE8F9D160449"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="EF616B45-543D-A54D-4E14-F27BB0C885B6" containerWithKeyObject="05CA46FB-BEEE-8BE7-FA25-E690005DF419" localFKIndex="8453EB36-46DC-4FA0-3925-8367A5B67BC2" name="RESERVATIONS_TOURISTS_FK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 21:35:21 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<referredTableLongName>TOURISTS</referredTableLongName>
+<deleteRule>CASCADE</deleteRule>
+<referredTableID>41498226-FB4A-8477-AAE9-913A40DA0EA7</referredTableID>
+<keyObject>CE1D8F7C-8D65-3920-F78F-1D949EEF26C3</keyObject>
+<referredKeyID>CE1D8F7C-8D65-3920-F78F-1D949EEF26C3</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>TOURIST_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

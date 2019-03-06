@@ -1,0 +1,14 @@
+#include <iostream>
+#include "ReadFromFile.h"
+using namespace std;
+
+int main() {
+	//cout << "mama" << endl;
+	ReadFromFile readFromFile = ReadFromFile();
+	readFromFile.readFromFile("graphStructure.txt");
+	cout << "Number of vertices: " << readFromFile.getNumberOfVertices() << ". Number of edges: " << readFromFile.getNumberOfEdges() << endl;
+	system("pause");
+	return 0;
+}
+
+//int argc, char * argv[]

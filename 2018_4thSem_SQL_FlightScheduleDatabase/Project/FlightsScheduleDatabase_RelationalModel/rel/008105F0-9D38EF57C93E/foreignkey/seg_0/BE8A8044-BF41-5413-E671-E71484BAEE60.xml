@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="BE8A8044-BF41-5413-E671-E71484BAEE60" containerWithKeyObject="A3622FE9-FA0B-7114-A855-77FB3D472F75" localFKIndex="3ACA7BB6-78F3-05B3-C695-F9FCF917DFE4" name="AIRPORTS_COUNTIRES_FK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 00:29:17 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<referredTableLongName>COUNTIRES</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>339D7C3A-3264-0A92-7663-B30B15D879AF</referredTableID>
+<keyObject>966FD207-4F2F-4BFD-FBBC-C1E644B6DA8C</keyObject>
+<referredKeyID>966FD207-4F2F-4BFD-FBBC-C1E644B6DA8C</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>COUNTRY_NAME</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

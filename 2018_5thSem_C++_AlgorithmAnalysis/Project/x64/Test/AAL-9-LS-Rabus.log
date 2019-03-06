@@ -1,0 +1,10 @@
+﻿Build started 2018-05-21 13:52:30.
+     1>Project "D:\Moje_dokumenty\EiTI_sem5\VisualStudioProjects\AAL-9-LS-Rabus\AAL-9-LS-Rabus.vcxproj" on node 2 (ClCompile target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Test\\" /Fd"x64\Test\vc120.pdb" /Gd /TP /errorReport:prompt Main.cpp
+         Main.cpp
+     1>Done Building Project "D:\Moje_dokumenty\EiTI_sem5\VisualStudioProjects\AAL-9-LS-Rabus\AAL-9-LS-Rabus.vcxproj" (ClCompile target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.53

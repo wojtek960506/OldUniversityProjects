@@ -1,0 +1,142 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="C5AAA0DB-6B99-434E-C20B-6B7E0C312425" name="FLIGHTS">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 15:02:38 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<ordsAlias>table_4</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="FLIGHT_ID" id="2C431D21-09CA-34A0-1681-1D1F514DD808">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 15:15:13 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<notNullConstraintName>NNC_FLIGHTS_FLIGTH_ID</notNullConstraintName>
+</Column>
+<Column name="AIRLINE_NAME" id="96F6B3A4-C645-F874-3B3A-297630479678">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 21:09:09 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>40,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8635940D-FABD-F9C9-0D9D-8E508E7D3CDC" referredColumn="8BC435F7-653B-D13B-5DED-3A24DAF75F7F"/>
+</associations>
+</Column>
+<Column name="FLIGHT_DEPARTURE_TIME" id="C909B2B6-CA55-7935-BC0B-250F75FC0919">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 00:05:39 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<dataTypeScale>1</dataTypeScale>
+<ownDataTypeParameters>,1,1</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FLIGHT_DEPARTURE_AIRPORT" id="A78C6CFF-6519-11D0-21FB-DFD2DE2EC5EB">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-23 20:26:26 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>3</dataTypeSize>
+<ownDataTypeParameters>3,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4DD253A5-91B2-694D-6D6D-9D2E6E00D156" referredColumn="1D9B5954-9877-2968-1559-7B29DA786144"/>
+</associations>
+</Column>
+<Column name="FLIGHT_ARRIVAL_TIME" id="A636CACD-6C41-2AC8-BC65-7C7A49CC8C0B">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 00:08:38 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<dataTypeScale>1</dataTypeScale>
+<ownDataTypeParameters>,1,1</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FLIGHT_ARRIVAL_AIRPORT" id="9C72407A-7650-05BA-90FD-692D30D5A115">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-23 20:27:16 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>3</dataTypeSize>
+<ownDataTypeParameters>3,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="ECC728E7-8D43-F323-3087-C928A1AC04AD" referredColumn="1D9B5954-9877-2968-1559-7B29DA786144"/>
+</associations>
+</Column>
+<Column name="FLIGHT_PRICE" id="5E86D58A-5167-E872-8283-C24533EB1EB8">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 23:39:44 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="0E67DDBE-F8BA-0925-BB3A-2B11A195D5F2" name="FLIGHTS_PK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 15:15:13 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2C431D21-09CA-34A0-1681-1D1F514DD808"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="49420D2E-377A-3A2B-78ED-29F103553AB8" name="FLIGHTS_AIRLINES_FK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 00:38:06 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="96F6B3A4-C645-F874-3B3A-297630479678"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B087AD66-86E9-9F28-E97F-02041ACD0C3A" name="FLIGHTS_AIRPORTS_DEPARTURE_FK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-23 20:26:26 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A78C6CFF-6519-11D0-21FB-DFD2DE2EC5EB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9A7FEA29-D80D-EC7F-8C2C-0A459318B3B8" name="FLIGHTS_AIRPORTS_ARRIVAL_FK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-23 20:28:55 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9C72407A-7650-05BA-90FD-692D30D5A115"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

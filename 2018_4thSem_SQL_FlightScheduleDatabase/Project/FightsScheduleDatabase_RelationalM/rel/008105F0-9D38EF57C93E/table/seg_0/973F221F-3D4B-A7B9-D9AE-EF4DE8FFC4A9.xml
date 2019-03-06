@@ -1,0 +1,72 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="973F221F-3D4B-A7B9-D9AE-EF4DE8FFC4A9" name="FLIGHTS_RESERVATIONS">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 23:34:59 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<ordsAlias>table_14</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="FLIGHT_ID" id="7990CA68-98E7-F216-7B52-110F0D7607CB">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 23:35:56 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F1F62851-AAB1-26E2-981C-C4C02F6C1075" referredColumn="2C431D21-09CA-34A0-1681-1D1F514DD808"/>
+</associations>
+</Column>
+<Column name="RESERVATION_ID" id="832EE75D-4292-AB46-2386-C353E262C3C2">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 23:35:56 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5954DA46-8CCE-3E22-0B91-FCE00A01A676" referredColumn="D3AE4D54-D31A-C669-65CB-4DE2E8ADF112"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="8475BA21-EBE3-6C57-C34A-765CAE0C19EA" name="FLIGHTS_RESERVATIONS_PK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 23:36:06 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7990CA68-98E7-F216-7B52-110F0D7607CB"/>
+<colUsage columnID="832EE75D-4292-AB46-2386-C353E262C3C2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="350BB394-D894-C1B7-67AB-39425FFD8BB0" name="FLIGHTS_RES_FLIGHTS_FK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 23:36:42 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7990CA68-98E7-F216-7B52-110F0D7607CB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F6E01068-02F0-DF53-CE51-66835367D176" name="FLIGHTS_RES_RES_FK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 23:38:11 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="832EE75D-4292-AB46-2386-C353E262C3C2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

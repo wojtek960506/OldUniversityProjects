@@ -1,0 +1,106 @@
+#include "ShortestPathsAlgorithm.h"
+#include <iomanip>
+#include <cstdlib>
+
+
+ShortestPathsAlgorithm::ShortestPathsAlgorithm()
+{
+}
+
+
+ShortestPathsAlgorithm::~ShortestPathsAlgorithm()
+{
+}
+
+ShortestPathsAlgorithm::ShortestPathsAlgorithm(ReadFromFile * rff) {
+	vertices = rff->getVertices();
+	adjList = rff->getAdjList();
+	numberOfVertices = rff->getNumberOfVertices();
+	numberOfEdges = rff->getNumberOfEdges();
+
+	for (int i = 0; i < numberOfVertices; i++){
+		//we fill list of every item's parent with -1 which means that it has no parent at this time
+		list<int> l = list<int>();
+		//l.push_back(-1);
+		parents.push_back(l);
+		visited.push_back(false);
+		levelOfVertices.push_back(0); //how far from firstVertex is every vertex
+	}
+}
+
+void ShortestPathsAlgorithm::shortestPathsAlgorithm(int firstVertex, int lastVertex) {
+		//visited - tablica odwiedzin
+	//parents - tablica œcie¿ek
+	//verticesQueue - kolejka
+	//levelOfVertices - tablica odleglosci od wierzcholka startowwego
+	//adjList - lista s¹siedztwa
+
+	if (firstVertex > numberOfVertices - 1 || firstVertex < 0 || lastVertex > numberOfVertices - 1 || lastVertex < 0 || firstVertex == lastVertex)
+		return;
+
+	int currentVertex;
+	bool found = false; //to check if we found at least one path
+	parents[firstVertex].push_back(-1);
+	verticesQueue.push(firstVertex);
+	visited[firstVertex] = true;
+
+	while (!verticesQueue.empty()) {
+		currentVertex = verticesQueue.front(); //we take first element from queue
+		verticesQueue.pop();
+
+		if (currentVertex == lastVertex) {
+			found = true;
+			break;
+		}
+
+		list<int> tempList = adjList[currentVertex];
+		for (int tempVertex : tempList) {
+			if (!visited[tempVertex]) {
+				parents[tempVertex].push_back(currentVertex);
+				++levelOfVertices[tempVertex]; //currentVertex is parent of tempVertex, so tempVertex in one level higher than currentVertex
+				verticesQueue.push(tempVertex);
+				visited[tempVertex] = true; //tempVertex has been just visited
+			}
+			//if currentVertex is in the same level as tempVertex's parents
+			else if ( !(parents[tempVertex].size == 0) && levelOfVertices[currentVertex] == levelOfVertices[parents[tempVertex].front()]) {
+				parents[tempVertex].push_back(currentVertex);
+			}
+		}
+
+	}
+
+
+//--------------------------------------------------------------------------
+	cout << "lista rodzicow" << endl;
+	for (int i = 0; i < numberOfVertices; i++)
+	{
+		cout << "parents[" << i << "] =";
+		list<int> p = parents[i];
+
+		list<int>::iterator it;
+		for (int n : p){
+			cout << setw(3) << n;
+		}
+
+		cout << endl;
+//----------------------------------------------------------------------------
+
+}
+
+
+
+
+
+/*cout << "konstruktor algorytmu" << endl;
+for (int i = 0; i < rff->getNumberOfVertices(); i++)
+{
+cout << "adjList[" << i << "] =";
+list<int> p = adjList[i];
+
+list<int>::iterator it;
+for (int n : p){
+cout << setw(3) << n;
+}
+
+cout << endl;
+}*/

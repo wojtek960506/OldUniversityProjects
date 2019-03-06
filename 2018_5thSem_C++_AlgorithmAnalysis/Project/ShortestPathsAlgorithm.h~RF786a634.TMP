@@ -1,0 +1,28 @@
+#pragma once
+#include "ReadFromFile.h"
+#include <queue>
+
+class ShortestPathsAlgorithm
+{
+private:
+	vector<vertex> vertices;
+	vector< list<int> > adjList;
+	vector<list<int> > parents;
+	vector<int> levelOfVertices;
+	vector<bool> visited;
+	int numberOfVertices;
+	int numberOfEdges;
+	queue<int> verticesQueue;
+	int length=0;
+	vector<int> recursiveVertices;
+	vector< vector<int> > shortestPaths;
+
+public:
+	ShortestPathsAlgorithm();
+	~ShortestPathsAlgorithm();
+
+	ShortestPathsAlgorithm(ReadFromFile*);
+	void shortestPathsAlgorithm(int, int);
+	void fillShortestPaths(int);
+};
+

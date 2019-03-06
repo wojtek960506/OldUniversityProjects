@@ -1,0 +1,71 @@
+#include "ReadFromFile.h"
+#include <fstream>
+#include <iostream>
+
+
+ReadFromFile::ReadFromFile()
+{
+	numberOfVertices = 0;
+	numberOfEdges = 0;
+	//volumesTable = NULL;
+	//benefitsTable = NULL;
+	//fileName = nullptr;
+}
+
+
+ReadFromFile::~ReadFromFile()
+{
+	delete volumesTable;
+	delete benefitsTable;
+}
+
+/* do czytania ka¿dej linii
+while (getline(myfile, line))
+{
+cout << line << '\n';
+}*/
+
+bool ReadFromFile::readFromFile(string fN) {
+	fileName = fN;
+
+	string line;
+	ifstream myfile(fileName);
+	if (myfile.is_open())
+	{
+		myfile >> numberOfVertices >> numberOfEdges;
+		adjList = new listEl *[numberOfVertices]; //table of adjacency lists
+		//vertexesTable = new vertex[numberOfVertices];
+		
+		for (int i = 0; i < numberOfVertices; i++) { //we fill table with empty lists
+			adjList[i] = NULL;
+			vertex v;
+
+			myfile >> v.volume >> v.benefit;
+			v.number = i;
+			vertices.push_back(v);
+
+		}
+
+
+		/*
+		for (int i = 0; i < )
+
+		for (int i = 0; i < numberOfEdges; i++) { //we fill lists with edges
+			myfile >>
+		}*/
+
+		myfile.close();
+		return true;
+	}
+
+	else cout << "Unable to open file";
+	return false;
+}
+
+int ReadFromFile::getNumberOfVertices() {
+	return numberOfVertices;
+}
+
+int ReadFromFile::getNumberOfEdges() {
+	return numberOfEdges;
+}

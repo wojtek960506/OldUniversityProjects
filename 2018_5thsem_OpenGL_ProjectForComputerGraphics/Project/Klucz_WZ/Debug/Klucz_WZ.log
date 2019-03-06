@@ -1,0 +1,41 @@
+﻿Build started 2018-06-07 14:53:21.
+     1>Project "D:\Moje_dokumenty\EiTI_sem5\GKOM\WZ_Klucz\Klucz_WZ\Klucz_WZ.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Klucz_WZ.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt WZ_Main.cpp
+         WZ_Main.cpp
+     1>d:\moje_dokumenty\eiti_sem5\gkom\wz_klucz\klucz_wz\wz_main.cpp(57): warning C4305: 'initializing' : truncation from 'double' to 'const GLfloat'
+     1>d:\moje_dokumenty\eiti_sem5\gkom\wz_klucz\klucz_wz\wz_main.cpp(333): warning C4244: '=' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>d:\moje_dokumenty\eiti_sem5\gkom\wz_klucz\klucz_wz\wz_main.cpp(334): warning C4244: '=' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>d:\moje_dokumenty\eiti_sem5\gkom\wz_klucz\klucz_wz\wz_main.cpp(338): warning C4244: 'initializing' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>d:\moje_dokumenty\eiti_sem5\gkom\wz_klucz\klucz_wz\wz_main.cpp(339): warning C4244: 'initializing' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>d:\moje_dokumenty\eiti_sem5\gkom\wz_klucz\klucz_wz\wz_main.cpp(340): warning C4244: '=' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>d:\moje_dokumenty\eiti_sem5\gkom\wz_klucz\klucz_wz\wz_main.cpp(341): warning C4244: '=' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>d:\moje_dokumenty\eiti_sem5\gkom\wz_klucz\klucz_wz\wz_main.cpp(349): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>d:\moje_dokumenty\eiti_sem5\gkom\wz_klucz\klucz_wz\wz_main.cpp(411): warning C4244: 'initializing' : conversion from 'double' to 'GLfloat', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Moje_dokumenty\EiTI_sem5\GKOM\WZ_Klucz\Debug\WZ_Klucz.exe" /INCREMENTAL /NOLOGO opengl32.lib glfw3.lib glew32s.lib soil.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:msvcrt.lib /NODEFAULTLIB:libcmt.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Moje_dokumenty\EiTI_sem5\GKOM\WZ_Klucz\Debug\WZ_Klucz.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Moje_dokumenty\EiTI_sem5\GKOM\WZ_Klucz\Debug\WZ_Klucz.lib" /MACHINE:X86 Debug\WZ_Camera.obj
+         Debug\WZ_Main.obj
+         Debug\WZ_ShaderProgram.obj
+         soil.lib(SOIL.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+     1>LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+     1>WZ_Camera.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
+         Generating code
+         Finished generating code
+     1>WZ_ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewAttachShader imported
+     1>WZ_ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewCompileShader imported
+     1>WZ_ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewCreateProgram imported
+     1>WZ_ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewCreateShader imported
+     1>WZ_ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewDeleteShader imported
+     1>WZ_ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewGetProgramInfoLog imported
+     1>WZ_ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewGetProgramiv imported
+     1>WZ_ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewGetShaderInfoLog imported
+     1>WZ_ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewGetShaderiv imported
+     1>WZ_ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewLinkProgram imported
+     1>WZ_ShaderProgram.obj : warning LNK4049: locally defined symbol ___glewShaderSource imported
+         Klucz_WZ.vcxproj -> D:\Moje_dokumenty\EiTI_sem5\GKOM\WZ_Klucz\Debug\WZ_Klucz.exe
+     1>Done Building Project "D:\Moje_dokumenty\EiTI_sem5\GKOM\WZ_Klucz\Klucz_WZ\Klucz_WZ.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.78

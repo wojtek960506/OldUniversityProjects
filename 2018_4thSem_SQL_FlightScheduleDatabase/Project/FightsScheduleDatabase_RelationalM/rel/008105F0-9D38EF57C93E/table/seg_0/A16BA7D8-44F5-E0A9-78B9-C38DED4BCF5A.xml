@@ -1,0 +1,82 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A16BA7D8-44F5-E0A9-78B9-C38DED4BCF5A" name="DISCOUNTS">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 23:41:38 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<ordsAlias>table_17</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="DISCOUNT_ID" id="EDD9F0A1-F597-60A2-8D1F-B49B2B68D38D">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 23:43:01 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RESERVATION_ID" id="5E80716E-1A07-4933-BD98-520C87C85689">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 23:43:50 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="97864B61-9AA9-D498-A8B8-F1C7A87958D8" referredColumn="D3AE4D54-D31A-C669-65CB-4DE2E8ADF112"/>
+</associations>
+</Column>
+<Column name="DISCOUNT_PERCENTAGE" id="C9F8EFAD-6691-1A9D-DD36-9586B4C22ABA">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 16:34:15 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DISCOUNT_NAME" id="1F7ABF80-81B2-5A8C-ABC2-4939A7D4338C">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-24 20:51:57 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="2118F2E3-1359-95C9-F017-C98F4C234DCB" name="DISCOUNTS_PK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 23:43:01 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EDD9F0A1-F597-60A2-8D1F-B49B2B68D38D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="D1A39888-87F0-5360-7C55-34618EBE67B8" name="DISCOUNTS_RESERVATIONS_FK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 23:43:50 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5E80716E-1A07-4933-BD98-520C87C85689"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

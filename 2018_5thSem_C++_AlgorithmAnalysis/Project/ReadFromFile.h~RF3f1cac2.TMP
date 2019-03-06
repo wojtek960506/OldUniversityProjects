@@ -1,0 +1,43 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+#pragma once
+
+//struct with vertex details
+struct vertex {
+	int number;
+	int volume;
+	int benefit;
+};
+
+//struct for elements of adjacency list
+struct listEl {
+	int num;
+	listEl * next;
+
+};
+
+class ReadFromFile
+{
+private:
+	int numberOfVertices;
+	int numberOfEdges;
+	listEl ** adjList;
+	vector<vertex> vertices;
+	int * volumesTable;
+	int * benefitsTable;
+	string fileName;
+
+
+public:
+	ReadFromFile();
+	~ReadFromFile();
+	bool readFromFile(string);
+	int getNumberOfVertices();
+	int getNumberOfEdges();
+	vector<vertex> getVertices();
+	listEl** getAdjList();
+	
+};
+

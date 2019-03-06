@@ -1,0 +1,4 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.relational.RelationalDesign>
+   <object objectType="main_view" objectID="92BB5734-9343-74DB-D5ED-762813911F5B" name="FlightsScheduleDatabaseRelationalM" visible="true"/>
+</oracle.dbtools.crest.model.design.relational.RelationalDesign>

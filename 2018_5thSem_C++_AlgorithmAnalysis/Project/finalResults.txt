@@ -1,0 +1,7 @@
+PROPONUJE TAKA DROGE UCIECZKI POMIEDZY MIASTAMI 0 i 499.
+
+Miasta, ktore nalezy kolejno odwiedzic: 0 -> 564 -> 474 -> 144 -> 199 -> 332 -> 980 -> 14 -> 90 -> 180 -> 353 -> 499
+
+Maksymalna wartosc lupow wynosi 75.
+
+Musimy napasc na miasta 0 , 474 , 144 , 199 , 332 , 980 , 90 , 353 , 499.

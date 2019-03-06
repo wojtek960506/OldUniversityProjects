@@ -1,0 +1,16 @@
+#include "ShortestPathsAlgorithm.h"
+
+
+ShortestPathsAlgorithm::ShortestPathsAlgorithm()
+{
+}
+
+
+ShortestPathsAlgorithm::~ShortestPathsAlgorithm()
+{
+}
+
+ShortestPathsAlgorithm::ShortestPathsAlgorithm(ReadFromFile * rff) {
+	vertices = rff->getVertices();
+	adjList = rff->getAdjList();
+}

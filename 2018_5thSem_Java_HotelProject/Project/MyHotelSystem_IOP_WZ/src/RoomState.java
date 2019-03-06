@@ -1,0 +1,4 @@
+
+public enum RoomState {
+	EMPTY, EMPTY_AND_RESERVED, TAKEN, TAKEN_AND_RESERVED;
+}

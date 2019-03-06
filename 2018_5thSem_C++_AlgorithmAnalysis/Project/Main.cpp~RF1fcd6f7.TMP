@@ -1,0 +1,141 @@
+#include <iostream>
+#include "ReadFromFile.h"
+#include "ShortestPathsAlgorithm.h"
+#include "KnapsackProblemAlgorithm.h"
+#include "RandomGraphGenerator.h"
+
+#include <chrono>
+
+using namespace std;
+
+#define CAPACITY_OF_KNAPSACK 15
+#define MAX_VOLUME 20
+#define MAX_BENEFIT 30
+#define NUMBER_OF_VERTICES 15
+#define NUMBER_OF_EGDES 20
+
+#define FIRST_VERTEX 0
+#define LAST_VERTEX 7
+
+#define LEVELS 15
+
+//-b 500 -n 10 -s 500 -i 10
+
+void findBestPath(ShortestPathsAlgorithm shortestPathsAlgorithm, int firstVertex, int lastVertex, bool saveToFile);
+void writeErrorToFile(string fN, int firstVertex, int lastVertex);
+
+int main(int argc, char **argv) {
+
+	char c;
+	int firstVertex, lastVertex;
+	firstVertex = FIRST_VERTEX;
+	lastVertex = LAST_VERTEX;
+	ReadFromFile readFromFile; // = ReadFromFile();
+	ShortestPathsAlgorithm shortestPathsAlgorithm; // = ShortestPathsAlgorithm();
+	//KnapsackProblemAlgorithm knapsackProblemAlgorithm = KnapsackProblemAlgorithm();
+
+	RandomGraphGenerator randomGraphGenerator; // = RandomGraphGenerator();
+	
+	//odczyt z pliku
+	if (argc == 3 && ((strcmp(argv[1], "--file") == 0) || (strcmp(argv[1], "-f") == 0))) {
+		readFromFile.readFromFile(argv[2]);
+		shortestPathsAlgorithm = ShortestPathsAlgorithm(&readFromFile);
+		findBestPath(shortestPathsAlgorithm, firstVertex, lastVertex, true);
+	}
+	//generacja danych
+	else if ( argc == 2 && (( strcmp(argv[1],"--gen") == 0) || (strcmp(argv[1],"-g") == 0)) ) {
+		randomGraphGenerator = RandomGraphGenerator(NUMBER_OF_VERTICES, NUMBER_OF_EGDES, MAX_VOLUME, MAX_BENEFIT);
+		randomGraphGenerator.generateGraph();
+		shortestPathsAlgorithm = ShortestPathsAlgorithm(&randomGraphGenerator);
+		findBestPath(shortestPathsAlgorithm, firstVertex, lastVertex, true);
+	}
+	//testowanie z pomiarem czasu
+	else if (argc == 9 && (strcmp(argv[1], "-b") == 0) && (strcmp(argv[3], "-n") == 0)
+			&& (strcmp(argv[5], "-s") == 0)	&& (strcmp(argv[7], "-i") == 0)) {
+
+		//cout << argv[0] << endl;
+		
+		chrono::high_resolution_clock::time_point t1, t2;
+		double timePoint;
+
+		int beginVertices = atoi(argv[2]);
+		int numberOfSteps = atoi(argv[4]);
+		int stepValue = atoi(argv[6]);
+		int numberOfInstances = atoi(argv[8]);
+		RandomGraphGenerator generator = RandomGraphGenerator(beginVertices, beginVertices, MAX_BENEFIT, MAX_VOLUME);
+		for (int i = 0; i < numberOfSteps; i++) {
+			//timePoint = 0;
+			for (int j = 0; j < numberOfInstances; j++) {
+				//t1 = chrono::high_resolution_clock::now();
+				generator.generateGraph();
+				//t2 = chrono::high_resolution_clock::now();
+				timePoint = 0;
+				t1 = chrono::high_resolution_clock::now();
+				shortestPathsAlgorithm = ShortestPathsAlgorithm(&generator);
+				findBestPath(shortestPathsAlgorithm, firstVertex, lastVertex, false);
+				t2 = chrono::high_resolution_clock::now();
+				timePoint = chrono::duration_cast<chrono::nanoseconds>(t2 - t1).count() / (1e9);
+				cout << "i = " << i << " j = " << j;
+				cout << " Time: " << timePoint << " seconds." << endl;;
+			}
+			beginVertices += stepValue;
+			generator.resetValues(beginVertices, beginVertices, MAX_BENEFIT, MAX_VOLUME);
+		}
+		
+		//cout << beginVertices << " " << numberOfSteps << " " << stepValue << " " << numberOfInstances << endl;
+		//cin >> c;
+		//return 0;
+	}
+
+	//specjalna generacja
+	else if (argc == 5 && (strcmp(argv[1], "-levels") == 0) && (strcmp(argv[3], "-steps") == 0)) {
+		int levels = atoi(argv[2]);
+		int steps = atoi(argv[4]);
+
+
+		for (int i = 0; i < steps; i++) {
+			RandomGraphGenerator specialGenerator = RandomGraphGenerator(NUMBER_OF_VERTICES, NUMBER_OF_EGDES, MAX_VOLUME, MAX_BENEFIT);
+			specialGenerator.generateSpecialGraph(LEVELS);
+			shortestPathsAlgorithm = ShortestPathsAlgorithm(&specialGenerator);
+			findBestPath(shortestPathsAlgorithm, 0, 2 * LEVELS + 1, true);
+		}
+	}
+
+	else {
+		cout << "blad argumentow" << endl;
+		cin >> c;
+		return -1;
+	}
+	cin >> c;
+	return 0;
+}
+
+void findBestPath(ShortestPathsAlgorithm shortestPathsAlgorithm,int firstVertex, int lastVertex, bool saveToFile) {
+	bool b = shortestPathsAlgorithm.shortestPathsAlgorithm(firstVertex, lastVertex);
+
+	if (b) {
+		//istnieje co najmniej jedna najkrotsza sciezka
+		KnapsackProblemAlgorithm knapsackProblemAlgorithm = KnapsackProblemAlgorithm(&shortestPathsAlgorithm, CAPACITY_OF_KNAPSACK);
+		knapsackProblemAlgorithm.findBestEscapeRoute();
+		if (saveToFile)
+			knapsackProblemAlgorithm.bestRouteDetails(firstVertex, lastVertex, "finalResults.txt");
+	}
+	else {
+		//nie istnieje najkrotsza sciezka
+		if (saveToFile)	//przy liczeniu czasow nie chcemy nic zapisywac do pliku
+			writeErrorToFile("finalResults.txt", firstVertex, lastVertex);
+	}
+}
+
+void writeErrorToFile(string fN, int firstVertex, int lastVertex) {
+	ofstream myFile(fN);
+
+	if (myFile.is_open()) {
+		myFile << "There is not shortest path between vertices " << firstVertex << " and " << lastVertex << ".";
+	}
+	else {
+		cout << "Unable to open a file " + fN << endl;
+		char c;
+		cin >> c;
+	}
+}

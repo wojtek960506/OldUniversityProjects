@@ -1,0 +1,57 @@
+#include <iostream>
+#include "ReadFromFile.h"
+#include "ShortestPathsAlgorithm.h"
+#include "KnapsackProblemAlgorithm.h"
+#include "RandomGraphGenerator.h"
+using namespace std;
+
+#define CAPACITY_OF_KNAPSACK 50
+#define FIRST_VERTEX 0
+#define LAST_VERTEX 9
+#define GEN 10
+
+int main(int argc, char **argv) {
+
+	bool b;
+	int firstVertex, lastVertex;
+	firstVertex = FIRST_VERTEX;
+	lastVertex = LAST_VERTEX;
+	ReadFromFile readFromFile = ReadFromFile();
+	ShortestPathsAlgorithm shortestPathsAlgorithm = ShortestPathsAlgorithm();
+	KnapsackProblemAlgorithm knapsackProblemAlgorithm = KnapsackProblemAlgorithm();
+
+	RandomGraphGenerator randomGraphGenerator = RandomGraphGenerator();
+	
+
+	if (argc == 2) { //czytamy z pliku
+		readFromFile.readFromFile("graphStructure.txt");
+		shortestPathsAlgorithm = ShortestPathsAlgorithm(&readFromFile);
+	}
+	if (argc == 1) {
+		randomGraphGenerator = RandomGraphGenerator(GEN,5*GEN);
+		randomGraphGenerator.generateGraph();
+		shortestPathsAlgorithm = ShortestPathsAlgorithm(&randomGraphGenerator);
+	}
+
+	cout << "mama" << endl;
+	
+	
+	b = shortestPathsAlgorithm.shortestPathsAlgorithm(firstVertex, lastVertex);
+	
+	
+	if (b) {
+		//istnieje co najmniej jedna najkrotsza sciezka
+		knapsackProblemAlgorithm = KnapsackProblemAlgorithm(&shortestPathsAlgorithm, CAPACITY_OF_KNAPSACK);
+		knapsackProblemAlgorithm.findBestEscapeRoute();
+		knapsackProblemAlgorithm.bestRouteDetails(firstVertex, lastVertex);
+
+	}
+	else {
+		//nie istnieje najkrotsza sciezka
+		cout << "NIE MA SCIEZKI MIEDZY TYMI PUNKTAMI" << endl;
+	}
+	char c;
+	cin >> c;
+	//system("pause");
+	return 0;
+}

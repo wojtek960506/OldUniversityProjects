@@ -1,0 +1,370 @@
+#define GLEW_STATIC
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <SOIL.h>
+
+#include <iostream>
+
+#include "WZ_ShaderProgram.h"
+#include "WZ_Camera.h"
+
+using namespace std;
+
+//deklaracje funkcji
+void key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mode);
+void mouse_callback(GLFWwindow* window, GLdouble xpos, GLdouble ypos);
+void scroll_callback(GLFWwindow* window, GLdouble xoffset, GLdouble yoffset);
+void processInput(GLFWwindow *window);
+GLuint loadTexture(const GLchar* fname);
+void increaseCameraAccuracyWhileMovingWithKeyboard();
+
+// rozmiary ekranu
+const GLuint WIDTH = 1200;
+const GLuint HEIGHT = 800;
+
+//kamera
+Camera camera = Camera();
+
+//wspolrzedne srodka ekranu
+GLfloat lastX = WIDTH / 2;
+GLfloat lastY = HEIGHT / 2;
+
+GLboolean firstMouse = true; //poczatkowy stan myszy
+
+float deltaTime = 0.0f;	// Time between current frame and last frame
+float lastFrame = 0.0f; // Time of last frame
+
+//wspolrzedne swiatla
+// lighting
+glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+
+
+int main()
+{
+	
+	
+	//inicjujemy okno
+	if (glfwInit() != GL_TRUE)
+	{
+		cout << "GLFW initialization failed" << endl;
+		return -1;
+	}
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); //nie mozna zmieniac rozmiaru okna
+
+	try {
+		
+		//tworzymy obiekt w ktorym przechowujemy informacje o oknie
+		//----------------------------------------------------------------------------------------------------------//
+		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "LearnOpenGL", NULL, NULL);							//
+		if (window == nullptr)																						//
+			throw exception("GLFW window not created");																//
+																													//
+		glfwMakeContextCurrent(window);																				//
+		glfwSetKeyCallback(window, key_callback);	//ta funkcja ustala nam sposob zamkniecia programu				//
+		glfwSetCursorPosCallback(window, mouse_callback);	//w funkcji mouse_callback definiuje zachowanie myszki	//
+		glfwSetScrollCallback(window, scroll_callback); //w funkcji scroll_callback definiujemy zoom				//
+																													//
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); //uruchomiona obsluga myszki					//
+																													//
+		glewExperimental = GL_TRUE;																					//
+		if (glewInit() != GLEW_OK)																					//
+			throw exception("GLEW Initialization failed");															//
+		glViewport(0, 0, WIDTH, HEIGHT);																			//
+		glEnable(GL_DEPTH_TEST); //bedziemy uzywali z-bufora														//		
+		//----------------------------------------------------------------------------------------------------------//
+
+		//tworzenie i kompilacja shadera
+		ShaderProgram lightingShader = ShaderProgram("WZ_colors1.vert", "WZ_colors1.frag");
+		ShaderProgram grassShader = ShaderProgram("WZ_colors1.vert", "WZ_colors1.frag");
+		//ShaderProgram grassShader = ShaderProgram("WZ_GrassVertexShader.vert", "WZ_GrassFragmentShader.frag");
+
+		float cubeVertices[] = {
+			// positions          // normals           // texture coords
+			-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+			0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,
+			0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
+			0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
+			-0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,
+			-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+
+			-0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+			0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+			0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+			0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+			-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+			-0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+
+			-0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+			-0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+			-0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+			-0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+			-0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+			-0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+
+			0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+			0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+			0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+			0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+			0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+			0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+
+			-0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+			0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+			0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+			0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+			-0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+			-0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+
+			-0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+			0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+			0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+			0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+			-0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+			-0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f
+		};
+
+		GLfloat grassVertices[] = {
+			//position					//texture
+			-2000.0f, 0.0f, -2000.0f,	0.0f, 0.0f,
+			 2000.0f, 0.0f, -2000.0f,	1.0f, 0.0f,
+			-2000.0f, 0.0f,  2000.0f,	0.0f, 1.0f,
+			 2000.0f, 0.0f,	 2000.0f,	1.0f, 1.0f
+		};
+
+		GLuint grassIndices[] = {
+			0, 1, 3,
+			0, 2, 3
+		};
+
+		//szescian
+		GLuint cubeVBO;
+		GLuint cubeVAO;
+		
+		glGenVertexArrays(1, &cubeVAO); //1 to ilosc buforow ktore definiujemy 
+		glGenBuffers(1, &cubeVBO);
+		glBindBuffer(GL_ARRAY_BUFFER,cubeVBO); //teraz do tablicy buforow dolaczamy nasz bufor wierzcholkow
+		glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
+		glBindVertexArray(cubeVAO); //dolaczamy tablice wierzchlkow
+
+		//ustawiamy atrybuty pozycji wierzcholkow
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(2);
+		glBindVertexArray(0);
+
+		//trawa
+		GLuint grassVBO;
+		GLuint grassVAO;
+		GLuint grassEBO;
+
+		glGenVertexArrays(1, &grassVAO);
+		glGenBuffers(1, &grassVBO);
+		glGenBuffers(1, &grassEBO);
+		
+		glBindVertexArray(grassVAO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, grassVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(grassVertices), grassVertices, GL_STATIC_DRAW);
+		
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, grassEBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(grassIndices), grassIndices, GL_STATIC_DRAW);
+		
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)(3 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(1);
+		
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
+
+
+
+		//ladujemy tekstury 
+		GLuint diffuseMap = loadTexture("container2.png");
+		GLuint specularMap = loadTexture("container2.png"); //container2_specular.png
+		GLuint grassTexture = loadTexture("grass.JPG");
+
+		//konfiguracja shaderow pod tekstury
+		lightingShader.use();
+		lightingShader.setInt("material.diffuse", 0);
+		lightingShader.setInt("material.specular", 1);
+		grassShader.use();
+		grassShader.setInt("teksture1", 2);
+
+		//glowna petla programu. Czeka az wywolamy zamkniecie okna
+		while (!glfwWindowShouldClose(window))
+		{
+			increaseCameraAccuracyWhileMovingWithKeyboard();			//zwieksza dokladnosc przesuwania kamery klawiatura
+			
+			processInput(window); //sprawdzamy czy zostal wcisniety ESC
+
+			glClearColor(0.0f, 0.0f, 1.0f, 1.0f);	//za kazdym obiegiem petli odswiezamy to co jest wyswietlane
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);			//tu jest ustawiony kolor ekranu
+
+
+			lightingShader.use();
+			lightingShader.setVec3("viewPos", camera.getPosition());
+			lightingShader.setFloat("material.shininess", 32.0f);
+			// swiatlo
+			lightingShader.setVec3("dirLight.direction", -100.0f, -100.0f, -100.0f);
+			lightingShader.setVec3("dirLight.ambient", 0.1f, 0.1f, 0.1f);
+			lightingShader.setVec3("dirLight.diffuse", 1.0f, 1.0f, 1.0f);
+			lightingShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+			//ustawiamy macierze projekcji i widoku
+			glm::mat4 projection = glm::perspective(glm::radians(camera.getZoom()), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+			glm::mat4 view = camera.getViewMatrix();
+			lightingShader.setMat4("projection", projection);
+			lightingShader.setMat4("view", view);
+			
+			glActiveTexture(GL_TEXTURE0);				// dolaczamy diffuseMap
+			glBindTexture(GL_TEXTURE_2D, diffuseMap);	
+			glActiveTexture(GL_TEXTURE1);				//dolaczamy specularMap
+			glBindTexture(GL_TEXTURE_2D, specularMap);
+			glActiveTexture(GL_TEXTURE2);				//dolaczamy specularMap
+			glBindTexture(GL_TEXTURE_2D, grassTexture);
+
+
+			//rysujemy szescian
+			glBindVertexArray(cubeVAO);
+			glm::mat4 modelCube;
+			modelCube = glm::translate(modelCube, glm::vec3(0.0f, 0.0f, 0.0f));
+			//float angle = 20.0f;
+			//model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+			lightingShader.setMat4("model", modelCube);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+			glBindVertexArray(0);
+
+			//trawa
+			grassShader.use();
+			grassShader.setMat4("projection", projection);
+			grassShader.setMat4("view",view);
+			glm::mat4 modelGrass = glm::translate(modelGrass, glm::vec3(0.0f, -1.0f, 0.0f));;
+			grassShader.setMat4("model", modelGrass);
+			
+			glBindVertexArray(grassVAO);
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+			glBindVertexArray(0);
+
+			glfwSwapBuffers(window); //czyszczenie bufora kolorow
+			glfwPollEvents();	//sprawdza czy cos sie zadzialo
+		}
+
+		//usuwamy wszystkie bufory, bo juz nie beda nam potrzebne
+		glDeleteVertexArrays(1, &cubeVAO);
+		glDeleteVertexArrays(1, &grassVAO);
+		glDeleteBuffers(1, &grassEBO);
+		glDeleteBuffers(1, &grassVBO);
+		glDeleteBuffers(1, &cubeVBO);
+	}
+	catch (exception ex)
+	{
+		cout << ex.what() << endl;
+	}
+	//system("pause");
+	glfwTerminate();
+	return 0;
+}
+
+/*------------------KONIEC MAINA--------------------*/
+
+
+/*---------------------FUNKCJE----------------------*/
+
+//funkcja z labek, zeby sprawdzic czy mi dziala
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+{
+	//cout << key << endl;
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, GL_TRUE);
+}
+
+
+//obsluga myszy
+void mouse_callback(GLFWwindow* window, GLdouble xpos, GLdouble ypos) {
+
+	if (firstMouse) { //zapewniamy, ze pierwsze najechanie myszka na ekran nie powoduje dziwnego przeskoku ekranu
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	GLfloat xoffset = xpos - lastX;	//sprawdzamy przesuniecie myszki i zapamietujemy ostatnia pozycje
+	GLfloat yoffset = lastY - ypos;
+	lastX = xpos;
+	lastY = ypos;
+
+	camera.processMouseMovement(xoffset, yoffset);
+}
+
+//obsluga zoomu 
+void scroll_callback(GLFWwindow* window, GLdouble xoffset, GLdouble yoffset)
+{
+	camera.processMouseScroll(yoffset);
+}
+
+void processInput(GLFWwindow *window)
+{
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
+
+	//ruchy kamery
+	//float cameraSpeed = 2.5f * deltaTime;
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		camera.processKeyboard(FORWARD, deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		camera.processKeyboard(BACKWARD, deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		camera.processKeyboard(LEFT, deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		camera.processKeyboard(RIGHT, deltaTime);
+}
+
+//ladowanie tekstury
+GLuint loadTexture(const GLchar* fname)	//przekazujemy ktory unit tekstury aktywujemy i nazwe pliku z ktorego pobieramy wzor
+{
+	//generujemy bufor tekstury i przypisujemy mu Id
+	GLuint texture;
+	glGenTextures(1, &texture);
+	
+	GLint width, height;	//szerokosc i wysokosc tekstury
+
+	unsigned char* image = SOIL_load_image(fname, &width, &height, 0, SOIL_LOAD_RGB); //ladujemy obrazek
+	if (image == nullptr)
+		throw exception("Failed to load texture file");
+
+	glBindTexture(GL_TEXTURE_2D, texture); //dolaczamy teksture i specyfikujemy, ze jest to tekstura 2D
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image); //specyfikujemy ze wygenerujemy teksture na juz
+	//dolaczonym obiecie 2D ; specyfikujemy poziom mipmap ; format zapisu ; szerokosc i wysokosc, ktore wczesniej ustalilismy ; zawsze 0 ; format
+	//dostarczonego obrazka ; typ danych w dostarczonym obrazku ; wlasciwy obrazek do tekstury, ktory odczytalismy
+
+	//ustawiamy to jak sie zachowuje tekstura
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glGenerateMipmap(GL_TEXTURE_2D); //generujemy wszystkie wymagane mipmapy dla danej tekstury
+	SOIL_free_image_data(image);	//czyscimy pamiec, bo juz nam nie potrzebna
+	glBindTexture(GL_TEXTURE_2D, 0);	//odpinamy teksture
+	return texture;
+}
+
+void increaseCameraAccuracyWhileMovingWithKeyboard() {
+
+	GLfloat currentFrame = glfwGetTime();
+	deltaTime = currentFrame - lastFrame;
+	lastFrame = currentFrame;
+
+}
+
+
+/*------------------KONIEC FUNKCJI----------------------------*/

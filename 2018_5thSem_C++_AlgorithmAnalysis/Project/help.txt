@@ -1,0 +1,27 @@
+Droga ucieczki (rabus), Wojciech Zielinski 
+Opcje programu:
+1. Odczyt danych z pliku
+nazwa_programu  --file nazwa_pliku
+nazwa_programu  -f nazwa_pliku 
+  * dwa rownowazne wywolania
+2. Generacja danych losowych
+nazwa_programu --gen
+nazwa_programu -g
+  * dwa rownowazne wywolania 
+3. Testowanie czasu wykonania przy losowym generowaniu danych
+nazwa_programu -b begin -n number -s step -i instance
+  * begin to poczatkowa ilosc wierzcholkow i krawedzi w grafie 
+  * number to ilosc krokow
+  * step to wielkosc kroku (o ile zwiekszamy ilosc generowanych danych
+    w kolejnym wywolaniu)
+  * instance to ilosc instancji problemu generowanych dla danej ilosci
+    wierzcholkow i krawedzi  
+4. Generacja szczegolnego przypadku
+nazwa_programu -genS levels
+  * levels to wyznacznik ilosci wierzcholkow
+5. Generacja szczegolnych przypadkow pesymistycznych do testu z liczeniem
+   czasu wykonania
+nazwa _programu  --first first --steps steps
+  * first to wyznacznik ilosci wierzcholkow w pierwszym kroku
+  * steps to ilosc krokow pomniejszona o jeden (tak wlasciwie jest to
+    ostatnia wartosc wyznacznika i jest on zwiekszany o 1 co kolejne wykonanie

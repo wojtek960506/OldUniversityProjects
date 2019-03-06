@@ -1,0 +1,105 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A3622FE9-FA0B-7114-A855-77FB3D472F75" name="AIRPORTS">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 00:26:40 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<ordsAlias>table_27</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="AIRPORT_CODE" id="1D9B5954-9877-2968-1559-7B29DA786144">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 00:28:28 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>3</dataTypeSize>
+<ownDataTypeParameters>3,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="AIRPORT_NAME" id="DE422B0D-2535-BF67-A5FF-3A69E3B0FDFA">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 16:42:43 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="AIRPORT_CITY" id="A9466123-02E2-D591-AEEE-F44FDF0C97A4">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 00:35:18 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="AIRPORT_COUNTRY" id="55383BC5-D8FF-0CBA-523F-71A8EA5D76A4">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 00:28:54 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="BE8A8044-BF41-5413-E671-E71484BAEE60" referredColumn="6A146920-2F1B-1861-5ACD-DF502AEAF8F4"/>
+</associations>
+</Column>
+<Column name="AIRPORT_ID" id="03D4992F-8347-D3F4-7C8D-23118D343ECD">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-21 01:13:44 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="77673ECD-56BB-DA15-B05E-F30A7ADEA9E6" name="AIRPORTS_PK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 00:28:28 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1D9B5954-9877-2968-1559-7B29DA786144"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8A3A0B8D-AF53-3FF2-DB0F-740302756DC8" name="AIRPORTS__UN">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 16:42:43 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DE422B0D-2535-BF67-A5FF-3A69E3B0FDFA"/>
+<colUsage columnID="03D4992F-8347-D3F4-7C8D-23118D343ECD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3ACA7BB6-78F3-05B3-C695-F9FCF917DFE4" name="AIRPORTS_COUNTIRES_FK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 00:29:17 UTC</createdTime>
+<ownerDesignName>FlightsScheduleDatabase_RelationalModel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="55383BC5-D8FF-0CBA-523F-71A8EA5D76A4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

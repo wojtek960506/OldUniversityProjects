@@ -1,0 +1,46 @@
+#include "ReadFromFile.h"
+#include <fstream>
+#include <iostream>
+
+
+ReadFromFile::ReadFromFile()
+{
+	numberOfVertices = 0;
+	numberOfEdges = 0;
+	//volumesTable = NULL;
+	//benefitsTable = NULL;
+	//fileName = nullptr;
+}
+
+
+ReadFromFile::~ReadFromFile()
+{
+	delete volumesTable;
+	delete benefitsTable;
+}
+
+void ReadFromFile::readFromFile(string fN) {
+	fileName = fN;
+
+	string line;
+	ifstream myfile(fileName);
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			cout << line << '\n';
+		}
+		myfile.close();
+	}
+
+	else cout << "Unable to open file";
+
+}
+
+int ReadFromFile::getNumberOfVertices() {
+	return numberOfVertices;
+}
+
+int ReadFromFile::getNumberOfEdges() {
+	return numberOfEdges;
+}

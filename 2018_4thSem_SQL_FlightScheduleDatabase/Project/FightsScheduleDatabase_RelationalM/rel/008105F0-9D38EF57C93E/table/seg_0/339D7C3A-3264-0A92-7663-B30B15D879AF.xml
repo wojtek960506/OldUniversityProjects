@@ -1,0 +1,67 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="339D7C3A-3264-0A92-7663-B30B15D879AF" name="COUNTRIES">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 23:18:04 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<ordsAlias>table_11</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="COUNTRY_ABBREVIATION" id="91522E32-DB6F-98DC-770B-456D06B993B9">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 13:03:21 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COUNTRY_NAME" id="6A146920-2F1B-1861-5ACD-DF502AEAF8F4">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 23:18:33 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COUNTRY_ID" id="0CDB6D0A-D251-F3B3-97D8-8904DD1C8DE0">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 18:23:31 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="966FD207-4F2F-4BFD-FBBC-C1E644B6DA8C" name="COUNTIRES_PK">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-19 23:18:33 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6A146920-2F1B-1861-5ACD-DF502AEAF8F4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="23E4B8DB-68F7-C4AB-9370-42C40AD6D850" name="COUNTRIES__UN">
+<createdBy>Dell</createdBy>
+<createdTime>2018-01-20 18:23:31 UTC</createdTime>
+<ownerDesignName>FightsScheduleDatabase_RelationalM</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0CDB6D0A-D251-F3B3-97D8-8904DD1C8DE0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

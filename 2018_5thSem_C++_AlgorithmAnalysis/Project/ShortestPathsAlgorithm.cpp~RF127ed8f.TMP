@@ -1,0 +1,171 @@
+#include "ShortestPathsAlgorithm.h"
+
+using namespace std;
+
+ShortestPathsAlgorithm::ShortestPathsAlgorithm(){}
+
+ShortestPathsAlgorithm::~ShortestPathsAlgorithm(){}
+
+ShortestPathsAlgorithm::ShortestPathsAlgorithm(ReadFromFile * rff) {
+	vertices = rff->getVertices();
+	adjList = rff->getAdjList();
+	numberOfVertices = rff->getNumberOfVertices();
+	numberOfEdges = rff->getNumberOfEdges();
+
+	for (int i = 0; i < numberOfVertices; i++){
+		//we fill list of every item's parent with -1 which means that it has no parent at this time
+		list<int> l = list<int>();
+		parents.push_back(l);
+		visited.push_back(false);
+		levelOfVertices.push_back(0); //how far from firstVertex is every vertex
+	}
+}
+
+ShortestPathsAlgorithm::ShortestPathsAlgorithm(RandomGraphGenerator * rgg) {
+	adjList = rgg->getAdjList();
+	vertices = rgg->getVertices();
+	numberOfVertices = rgg->getNumberOfVertices();
+	numberOfEdges = rgg->getNumberOfEdges();
+
+	for (int i = 0; i < numberOfVertices; i++){
+		//we fill list of every item's parent with -1 which means that it has no parent at this time
+		list<int> l = list<int>();
+		parents.push_back(l);
+		visited.push_back(false);
+		levelOfVertices.push_back(0); //how far from firstVertex is every vertex
+	}
+}
+
+
+
+bool ShortestPathsAlgorithm::shortestPathsAlgorithm(int firstVertex, int lastVertex) {
+	
+	//visited - tablica odwiedzin
+	//parents - tablica œcie¿ek
+	//verticesQueue - kolejka
+	//levelOfVertices - tablica odleglosci od wierzcholka startowwego
+	//adjList - lista s¹siedztwa
+
+	if (firstVertex > numberOfVertices - 1 || firstVertex < 0 || lastVertex > numberOfVertices - 1 || lastVertex < 0 || firstVertex == lastVertex)
+		return false;
+
+	int currentVertex;
+	bool found = false; //to check if we found at least one path
+	parents[firstVertex].push_back(-1);
+	verticesQueue.push(firstVertex);
+	visited[firstVertex] = true;
+
+	while (!verticesQueue.empty()) {
+		currentVertex = verticesQueue.front(); //we take first element from queue
+		verticesQueue.pop();
+
+		if (currentVertex == lastVertex) {
+			found = true;
+			break;
+		}
+
+		list<int> tempList = adjList[currentVertex];
+		for (int tempVertex : tempList) {
+			if (!visited[tempVertex]) {
+				parents[tempVertex].push_back(currentVertex);
+				levelOfVertices[tempVertex] = levelOfVertices[currentVertex]+1; //currentVertex is parent of tempVertex, so tempVertex in one level higher than currentVertex
+				length = max(length,levelOfVertices[tempVertex]);
+				verticesQueue.push(tempVertex);
+				visited[tempVertex] = true; //tempVertex has been just visited
+			}
+			//if currentVertex is in the same level as tempVertex's parents
+			else if (	parents[tempVertex].front()>=0 && !(parents[tempVertex].size() == 0) &&
+						levelOfVertices[currentVertex] == levelOfVertices[parents[tempVertex].front()])
+			{
+				parents[tempVertex].push_back(currentVertex);
+			}
+		}
+
+	}
+
+
+	if (found) {
+		findShortestPaths(lastVertex);
+		saveShortestPaths();
+		return true;
+	}
+	else
+		return false;
+}
+
+void ShortestPathsAlgorithm::saveShortestPaths() {
+	int a = 0;
+	for (int i = 0; i < numberOfShortestPaths; i++) {
+		vector<int> tempV = vector<int>();
+		shortestPaths.push_back(tempV);
+	}
+	int first = recursiveVertices[0]; //zapisujemy pierwszy (od tylu) element, bo on bêdzie w ka¿dej œcie¿ce
+	for (int i = 0; i < recursiveVertices.size(); i++) {
+		//we dont want to be out of bounds of vector
+		if (i == 0) {
+			shortestPaths[a].push_back(recursiveVertices[i]);
+		}
+		else {
+			if (levelOfVertices[recursiveVertices[i]] > levelOfVertices[recursiveVertices[i - 1]]) { //zaczynamy zapis kolejnej sciezki
+				++a;	//indeksy kolejnych wierzcholkow
+				int tempIndex = i;
+				int lvl = levelOfVertices[recursiveVertices[i]]; //level obecnego wierzcholka
+				int differenceLvl = length - lvl; //sprawdzamy ile nam brakuje elementów, w œcie¿ce
+				int flag = 1; //flaga do wstawienia pierwszego elementu
+				while (differenceLvl != 0) {
+					if (flag == 1) {
+						shortestPaths[a].push_back(first);
+						flag = 0;
+						--differenceLvl; //wstawilismy jeden z brakujacych elementow
+					}
+					else { //musimy jeszcze wstawic wszystkie pozostale
+						while (levelOfVertices[recursiveVertices[tempIndex]] != (lvl + differenceLvl)) {
+							--tempIndex; //cofamy sie do pierwszego elementu, ktory chcey wstawic
+						}
+						shortestPaths[a].push_back(recursiveVertices[tempIndex]);
+						tempIndex = i; //wracamy do naszego elementu
+						--differenceLvl; //znalezlismy kolejny element
+					}
+				}
+				shortestPaths[a].push_back(recursiveVertices[i]);
+			}
+			else {
+				shortestPaths[a].push_back(recursiveVertices[i]);
+			}
+		}
+	}
+}
+
+void ShortestPathsAlgorithm::findShortestPaths(int vNum) { //rekurencyjna funkcja do zapisu znalezienia wszystkich najkrotszych sciezek
+	list<int> listTemp = parents[vNum];
+	recursiveVertices.push_back(vNum);
+
+	for (int n : listTemp) {
+		if (n != -1)
+			findShortestPaths(n);
+		else {
+			++numberOfShortestPaths;
+			return;
+		}
+	}
+}
+
+vector<vector<int>> ShortestPathsAlgorithm::getShortestPaths() {
+	return shortestPaths;
+}
+
+int ShortestPathsAlgorithm::getNumberOfVertices() {
+	return numberOfVertices;
+}
+
+int ShortestPathsAlgorithm::getNumberOfEdges() {
+	return numberOfEdges;
+}
+
+vector<vertex> ShortestPathsAlgorithm::getVertices() {
+	return vertices;
+}
+
+vector<list<int> > ShortestPathsAlgorithm::getAdjList() {
+	return adjList;
+}

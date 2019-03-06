@@ -1,0 +1,19 @@
+Ilosc_wierzcholkow_i_krawedzi
+6 9
+Objetosc_i_wartosc_lupow_w_kazdym_wierzcholku
+1 3
+2 5
+5 1
+1 1
+6 12
+4 3
+Opis_krawedzi
+0 1
+0 5
+1 2
+1 4
+1 5
+2 3
+2 5
+3 4
+4 5
